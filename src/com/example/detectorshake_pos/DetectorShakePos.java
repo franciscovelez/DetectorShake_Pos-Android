@@ -17,7 +17,7 @@ import android.widget.TextView;
 public class DetectorShakePos extends Activity implements SensorEventListener{
 	private long last_update, current_time, time_difference; //Para controlar el tiempo
 	private float curX, curY, curZ; //Para almacenar el valor de cada eje
-	private float umbral_pos; //Para detectar la posición
+	private float umbral_pos; //Para detectar la posiciï¿½n
 	//Para calcular las aceleraciones
 	private float delta;
 	private float mAccel;
@@ -30,7 +30,7 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 	private MediaPlayer sonido = null; //Reproductor de sonidos
 
 		/**************************************
-		 * Eventos de estado de la aplicación *
+		 * Eventos de estado de la aplicaciï¿½n *
 		 **************************************/
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,16 +40,16 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 		
 		//Inicializamos los atributos
 		sonido = MediaPlayer.create(this, R.raw.touch);		
-		cont	 = 0;
+		cont   = 0;
 		mAccel = 0;
 		last_update = 0;
 		curX = curY = curZ = 0;
-		mAccelLast		 = SensorManager.GRAVITY_EARTH; 
-		mAccelCurrent	= SensorManager.GRAVITY_EARTH;		
-		history_size	 = 50; //Tamaño del vector
-		umbral_shake	 = 7;	//Valor de gravedad para considerar una agitación
-		umbral_cont		= 4;	//nº de agitaciones necesarias para que sea una agitación completa
-		umbral_pos		 = 7f; //Valor necesario para detectar que el dispositivo está en una posición
+		mAccelLast    = SensorManager.GRAVITY_EARTH; 
+		mAccelCurrent = SensorManager.GRAVITY_EARTH;		
+		history_size  = 50; //Tamaï¿½o del vector
+		umbral_shake  = 7;	//Valor de gravedad para considerar una agitaciï¿½n
+		umbral_cont   = 4;	//nï¿½ de agitaciones necesarias para que sea una agitaciï¿½n completa
+		umbral_pos    = 7f; //Valor necesario para detectar que el dispositivo estï¿½ en una posiciï¿½n
 		
 		//Ponemos el vector a cero
 		for(int i=0; i<history_size; i++)	
@@ -109,12 +109,12 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 			
 			//Comparamos la lectura de aceleracion anterior con la actual para detectar movimiento de
 			//aceleracion/desaceleracion. Como aceleracion se obtiene una medida global que es la 
-			//raíz cuadrada de la suma de los cuadrados de la aceleracion en cada eje
-			mAccelLast = mAccelCurrent;
+			//raï¿½z cuadrada de la suma de los cuadrados de la aceleracion en cada eje
+			mAccelLast    = mAccelCurrent;
 			mAccelCurrent = (float) Math.sqrt((double) (curX*curX + curY*curY + curZ*curZ));
-			delta = mAccelCurrent - mAccelLast;
-			mAccel = mAccel * 0.9f	+ delta;//mAccel = mAccel * 0.9f + delta;
-			mAccelLast = mAccelCurrent;
+			delta         = mAccelCurrent - mAccelLast;
+			mAccel        = mAccel * 0.9f + delta;
+			mAccelLast    = mAccelCurrent;
 			//Almacenamos en una cola las history_size ultimas lecturas para la deteccion del gesto shake
 			mov_history.add(mAccel);
 			mov_history.remove(0);
@@ -141,12 +141,12 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 			}
 			
 			//Detectamos si el dispositivo esta bocarriba o bocabajo
-			if(curX<-umbral_pos) textPantalla.setText("Posición: Vertical");
-			if(curX>umbral_pos)	 textPantalla.setText("Posición: Vertical inverso");
-			if(curY<-umbral_pos) textPantalla.setText("Posición: Horizontal inverso");
-			if(curY>umbral_pos)	 textPantalla.setText("Posición: Horizontal");
-			if(curZ<-umbral_pos) textPantalla.setText("Posición: Bocabajo");
-			if(curZ>umbral_pos)	 textPantalla.setText("Posición: Bocarriba");
+			if(curX<-umbral_pos) textPantalla.setText("Posiciï¿½n: Horizontal");
+			if(curX> umbral_pos) textPantalla.setText("Posiciï¿½n: Horizontal inverso");
+			if(curY<-umbral_pos) textPantalla.setText("Posiciï¿½n: Vertical inverso");
+			if(curY> umbral_pos) textPantalla.setText("Posiciï¿½n: Vertical");
+			if(curZ<-umbral_pos) textPantalla.setText("Posiciï¿½n: Bocabajo");
+			if(curZ> umbral_pos) textPantalla.setText("Posiciï¿½n: Bocarriba");
 			
 			
 			//Lectura actual del acelerometro
