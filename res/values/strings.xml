@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Detector de Shake y Posición</string>
+    <string name="action_settings">Settings</string>
+    <string name="coord_x_">"Coord X: "</string>
+    <string name="coord_y_">"Coord Y: "</string>
+    <string name="coord_z_">"Coord Z: "</string>
+    <string name="pos_">"Posición actual: "</string>
+    <string name="desc_barra">"Medidor de shakes. La barra crece a cada agitación detectada. ¡Llénala si puedes! "</string>
+</resources>
