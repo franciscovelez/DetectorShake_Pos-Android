@@ -1,7 +1,8 @@
 DetectorDePosicion-Android
 ==========================
 
-Aplicación Android que reconoce la posición del dispositivo
+Aplicación Android que reconoce cuándo se está agitando el dispositivo y también
+determina su posición.
 
 Esta aplicación ha sido desarrollada como práctica para comprender el funcionamiento
 del acelerómetro en dispositivos Android para la asignatura Nuevos Paradigmas de
