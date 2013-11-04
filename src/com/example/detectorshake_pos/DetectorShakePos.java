@@ -47,8 +47,8 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 		mAccelLast    = SensorManager.GRAVITY_EARTH; 
 		mAccelCurrent = SensorManager.GRAVITY_EARTH;		
 		history_size  = 50; //Tama�o del vector
-		umbral_shake  = 7;	//Valor de gravedad para considerar una agitaci�n
-		umbral_cont   = 4;	//n� de agitaciones necesarias para que sea una agitaci�n completa
+		umbral_shake  = 7;  //Valor de gravedad para considerar una agitaci�n
+		umbral_cont   = 4;  //n� de agitaciones necesarias para que sea una agitaci�n completa
 		umbral_pos    = 7f; //Valor necesario para detectar que el dispositivo est� en una posici�n
 		
 		//Ponemos el vector a cero
