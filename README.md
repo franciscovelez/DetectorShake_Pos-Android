@@ -1,4 +1,4 @@
-DetectorDePosicion-Android
+DetectorShake_Pos-Android
 ==========================
 
 Aplicación Android que reconoce cuándo se está agitando el dispositivo y también
