@@ -12,7 +12,7 @@
         android:text="@string/coord_x_"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
+    <TextView 
         android:id="@+id/txtAccY"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
