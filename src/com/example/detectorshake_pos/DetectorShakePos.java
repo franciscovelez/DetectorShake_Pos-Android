@@ -28,6 +28,7 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 	private ArrayList<Float> mov_history = new ArrayList<Float>();		
 	int contn, contp, cont, tmp;
 	private MediaPlayer sonido = null; //Reproductor de sonidos
+	SensorManager sm; 
 
 		/**************************************
 		 * Eventos de estado de la aplicación *
@@ -37,19 +38,20 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detector_shake_pos);
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		sm = (SensorManager) getSystemService(SENSOR_SERVICE);
 		
 		//Inicializamos los atributos
 		sonido = MediaPlayer.create(this, R.raw.touch);		
-		cont	 = 0;
-		mAccel = 0;
+		cont        = 0;
+		mAccel      = 0;
 		last_update = 0;
 		curX = curY = curZ = 0;
-		mAccelLast		 = SensorManager.GRAVITY_EARTH; 
-		mAccelCurrent	= SensorManager.GRAVITY_EARTH;		
-		history_size	 = 50; //Tamaño del vector
-		umbral_shake	 = 7;	//Valor de gravedad para considerar una agitación
-		umbral_cont		= 4;	//nº de agitaciones necesarias para que sea una agitación completa
-		umbral_pos		 = 7f; //Valor necesario para detectar que el dispositivo está en una posición
+		mAccelLast     = SensorManager.GRAVITY_EARTH; 
+		mAccelCurrent  = SensorManager.GRAVITY_EARTH;		
+		history_size   = 50; //Tamaño del vector
+		umbral_shake   = 7;	//Valor de gravedad para considerar una agitación
+		umbral_cont    = 4;	//nº de agitaciones necesarias para que sea una agitación completa
+		umbral_pos     = 7f; //Valor necesario para detectar que el dispositivo está en una posición
 		
 		//Ponemos el vector a cero
 		for(int i=0; i<history_size; i++)	
@@ -66,7 +68,7 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 	@Override
 	protected void onResume() {
 		super.onResume();
-		SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);
+		sm = (SensorManager) getSystemService(SENSOR_SERVICE);
 		List<Sensor> sensors = sm.getSensorList(Sensor.TYPE_ACCELEROMETER);				
 		if (sensors.size() > 0) {
 			sm.registerListener(this, sensors.get(0), SensorManager.SENSOR_DELAY_GAME);
@@ -74,12 +76,10 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 	}
 	
 	@Override
-	protected void onStop() {
-		SensorManager sm = (SensorManager) getSystemService(SENSOR_SERVICE);			
-		sm.unregisterListener(this);
-		super.onStop();
-	}
-
+    protected void onPause(){
+    	sm.unregisterListener(this);
+    	super.onPause();    	
+    }
 					
 	/**************************************
 	 * Eventos propios del sensor				 *
@@ -110,11 +110,11 @@ public class DetectorShakePos extends Activity implements SensorEventListener{
 			//Comparamos la lectura de aceleracion anterior con la actual para detectar movimiento de
 			//aceleracion/desaceleracion. Como aceleracion se obtiene una medida global que es la 
 			//raíz cuadrada de la suma de los cuadrados de la aceleracion en cada eje
-			mAccelLast = mAccelCurrent;
+			mAccelLast    = mAccelCurrent;
 			mAccelCurrent = (float) Math.sqrt((double) (curX*curX + curY*curY + curZ*curZ));
-			delta = mAccelCurrent - mAccelLast;
-			mAccel = mAccel * 0.9f	+ delta;//mAccel = mAccel * 0.9f + delta;
-			mAccelLast = mAccelCurrent;
+			delta         = mAccelCurrent - mAccelLast;
+			mAccel        = mAccel * 0.9f + delta;
+			mAccelLast    = mAccelCurrent;
 			//Almacenamos en una cola las history_size ultimas lecturas para la deteccion del gesto shake
 			mov_history.add(mAccel);
 			mov_history.remove(0);
